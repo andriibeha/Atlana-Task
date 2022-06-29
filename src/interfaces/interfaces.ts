@@ -20,3 +20,11 @@ export interface IUserInfo {
     readonly join_date: string
     readonly html_url: string
 }
+
+export interface IUserRepos { 
+    readonly id: number
+    readonly name: string
+    readonly forks: number
+    readonly stargazers_count: number
+    readonly html_url: string
+}

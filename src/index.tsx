@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/atlana-task" element={<FirstScreen />}>
-          <Route path=":id" element={<SecondScreen />}></Route>
-        </Route>
+        <Route path="/atlana-task/:login" element={<SecondScreen />}></Route>
+        <Route path="/atlana-task" element={<FirstScreen />}></Route>
+        
         
         <Route path='*' element={<NotFouund />}></Route>
       </Routes>

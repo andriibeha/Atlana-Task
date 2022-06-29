@@ -43,6 +43,49 @@ body {
   height: 50px;
 }
 
-.login { 
+
+//Second Page
+
+.user-info{ 
+  display: flex;
+
+  justify-content: space-around;
+
+  margin-bottom: 25px;
+}
+
+.user-info__avatar { 
+  width: 250px;
+  height: 250px;
+}
+
+.user-item { 
+  font-size: 17px;
+
+  margin-bottom: 15px;
+}
+
+//Repos 
+
+.repos { 
+  &__link { 
+    text-decoration: none;
+    color: black;
+    
+    padding: 10px;
+    
+    margin-bottom: 15px;
+  }
+
+  &__item { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name { 
+    font-size: 18px;
+  }
 
 }
+
