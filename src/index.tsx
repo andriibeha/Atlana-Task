@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
+import { BrowserRouter, Routes, Route  } from 'react-router-dom';
+import FirstScreen from './screens/FirstScreen';
+import SecondScreen from './screens/SecondScreen';
+import NotFouund from './screens/NotFouund';
+import './index.scss';
 
 
 const root = ReactDOM.createRoot(
@@ -9,7 +12,16 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/atlana-task" element={<FirstScreen />}>
+          <Route path=":id" element={<SecondScreen />}></Route>
+        </Route>
+        
+        <Route path='*' element={<NotFouund />}></Route>
+      </Routes>
+
+    </BrowserRouter>
   </React.StrictMode>
 );
 
