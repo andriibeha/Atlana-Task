@@ -1,7 +1,7 @@
 import { userInfo } from 'os';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UserList from '../components/UserList';
+import UserList from '../components/User';
 import { IForAllUser } from '../interfaces/interfaces';
 import SecondScreen from '../screens/SecondScreen'
 import axiosInstance from '../services/api';
@@ -19,7 +19,9 @@ const FirstScreen = () => {
     async function fetchAllUser() {
       try {
         const result = await axiosInstance.get('/users');
-        setAllUser(result.data)
+        const { data } = result
+        setAllUser(data);
+        setUsers(data)
       } catch (error) { 
         console.log(error)
       }
@@ -46,11 +48,13 @@ const FirstScreen = () => {
       <h1 className='title'>GitHub Searcher</h1>
 
       <input onInput={inputHandler} type="search" placeholder='Search of Users' className='search-input' />
-      
-      {users.map((user: { login: string, id: number, avatar_url: string }) => (
-      <UserList user={user} />
-      )})
-
+      <ul className='list'>
+        {users.map((user) => (
+          <li className='item' key={user?.id}>
+            <UserList user={user} />
+          </li>
+        ))}
+      </ul>
     </>
   )
 }

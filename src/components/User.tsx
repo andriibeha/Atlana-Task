@@ -3,7 +3,7 @@ import { Link, To } from 'react-router-dom';
 import { IForAllUser } from '../interfaces/interfaces';
 
 interface Props  {user:IForAllUser}
-function UserList({ user }:Props) {
+function User({ user }:Props) {
     const {avatar_url, login } = user
     return (
         <>
@@ -11,7 +11,6 @@ function UserList({ user }:Props) {
                 <img src={avatar_url} alt="avatar" className='avatar' />
                 <p className='login'>{login}</p>
             </Link>
-            
         </>
   )
 }
@@ -68,7 +67,7 @@ function userListRender(inputValue: any, data: any) {
     }
 } */
 
-export default UserList;
+export default User;
 
 
 /* {allUser.map(user => {

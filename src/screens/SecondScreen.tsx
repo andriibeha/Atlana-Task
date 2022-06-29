@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
+import UserRepo from '../components/Repo';
+import UserInfo from '../components/UserInfo';
 import { IUserInfo, IUserRepos } from '../interfaces/interfaces';
 import axiosInstance from '../services/api';
 
 
 const SecondScreen = () => {
   const { login } = useParams();
-  //@ts-ignore
-  const [user, setUser] = useState<IUserInfo, {}>({});
+  const [user, setUser] = useState<IUserInfo>();
+  const [allRepos, setAllRepos] = useState<IUserRepos[]>([]);
   const [repos, setRepos] = useState<IUserRepos[]>([]);
-  //@ts-ignore
-  const [inputValue, SetInputValue] = useState("")
+  const [inputValue, setInputValue] = useState("")
 
   useEffect(() => {
     async function fetchUserLogin() {
@@ -25,7 +26,9 @@ const SecondScreen = () => {
     async function fetchUserRepos() {
       try {
         const repos = await axiosInstance.get(`/users/${login}/repos`)
-        setRepos(repos.data)
+        const { data } = repos
+        setAllRepos(data);
+        setRepos(data)
       } catch (error) {
         console.log(error)
       }
@@ -33,59 +36,56 @@ const SecondScreen = () => {
 
     fetchUserLogin()
     fetchUserRepos()
-  }, [])
+  }, []);
+
+  useEffect(() => {
+      let filterUserRepos = allRepos.filter((dataItem: any) => {
+          return dataItem.name.toLowerCase().includes(inputValue.toLowerCase().trim())
+      });
+      setRepos(filterUserRepos)
+  },[inputValue])
 
    function inputHandler(e: any) {
-    SetInputValue(e.target.value)
+    setInputValue(e.target.value)
   } 
 
   return (
     <>
     <h1 className='title'>GitHub Searcher</h1>
-
-      <div className='user-info'>
-        <img src={user.avatar_url} alt="avatar" className='user-info__avatar' />
-        <ul className='user-list list'>
-          <li className='user-item'>
-            Login: {user.login ? user.login : "Nothing here"} 
-          </li>
-
-          <li className='user-item'>
-            Email: {user.email ? user.email : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Location: {user.location ? user.location : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Join date: {user.join_date ? user.join_date : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Followers: {user.followers ? user.followers : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Following: {user.following ? user.following : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Publick repos: {user.public_repos ? user.public_repos : "Nothing here"}
-          </li>
-
-          <li className='user-item'>
-            Bio: {user.bio ? user.bio : "Nothing here"}
-          </li>
-        </ul>
-      </div>
-
+      {user ? <UserInfo user={user} /> : <div className="loader"/>}
       <input onInput={inputHandler} type="search" placeholder='Search of Users Repositories' className='search-input' />
-
-      {reposListRender(inputValue, repos)}
+      <ul className='list repos__list'>
+        {repos.map((repo) => (
+          <li className='repos__item' key={repo?.id}>
+            <UserRepo repo={repo} />
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function reposListRender(inputValue: any, data: any) { 
   console.log(data)
