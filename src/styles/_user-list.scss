@@ -1,0 +1,49 @@
+.user {
+    &__item {
+        width: 85%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 10px;
+
+        margin-bottom: 15px;
+    }
+
+    &__avatar {
+        width: 75px;
+        height: 75px;
+
+        border-radius: 35%;
+    }
+
+    &__link {
+        width: 95%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        text-decoration: none;
+
+        padding: 25px;
+
+        margin-bottom: 15px;
+
+        
+    }
+
+    &__link:hover { 
+        cursor: pointer;
+
+        justify-content: space-around;
+    }
+
+    &__login { 
+        font-size: 20px;
+        color: black;
+
+        margin-right: 25px;
+    }
+}

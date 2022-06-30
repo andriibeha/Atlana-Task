@@ -1,0 +1,22 @@
+.user-info { 
+    & {
+            display: flex;
+    
+            justify-content: space-around;
+    
+            margin-bottom: 25px;
+        }
+    
+        &__avatar {
+            width: 250px;
+            height: 250px;
+
+             border-radius: 25%;
+        }
+    
+        &__item {
+            font-size: 17px;
+    
+            margin-bottom: 15px;
+        }
+}
